@@ -15,21 +15,21 @@
             <RowDefinition/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Height="20" VerticalAlignment="Center" Foreground="Black" Background="White">
+        <Menu Grid.Row="0" Height="20" VerticalAlignment="Center">
             <MenuItem Header="File">
-                <MenuItem Header="Open"/>
+                <MenuItem Header="Open" Command="{Binding OpenFileCommand}"/>
             </MenuItem>
         </Menu>
-        <TreeView Grid.Row="1" Background="AntiqueWhite" Margin="0,0,0,10">
+        <TreeView Grid.Row="1" Background="AntiqueWhite" Margin="0,0,0,0">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate>
-                    <TextBlock Text="asdad"/>
+                    <TextBlock />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
         <StatusBar Grid.Row="2">
             <StatusBarItem>
-                <TextBlock Text="File:"/>
+                <TextBlock Text="{Binding OpenedFileName}" TextWrapping="Wrap"/>
             </StatusBarItem>
         </StatusBar>
     </Grid>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AsmblyBrowserLib
 {
-    class TreeNode
+    public class TreeNode
     {
     }
 }
