@@ -6,7 +6,31 @@
         xmlns:local="clr-namespace:WpfAsmblyBrowser"
         mc:Ignorable="d"
         Title="Assembly Browser" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainPageVM/>
+    </Window.DataContext>
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Height="20" VerticalAlignment="Center" Foreground="Black" Background="White">
+            <MenuItem Header="File">
+                <MenuItem Header="Open"/>
+            </MenuItem>
+        </Menu>
+        <TreeView Grid.Row="1" Background="AntiqueWhite" Margin="0,0,0,10">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate>
+                    <TextBlock Text="asdad"/>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock Text="File:"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>
