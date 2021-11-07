@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using AsmblyBrowserLib;
 using Microsoft.Win32;
+using static System.String;
 
 namespace WpfAsmblyBrowser
 {
-    class MainPageVM : INotifyPropertyChanged
+    public class MainPageVM : INotifyPropertyChanged
     {
         public string OpenedFileName { get; set; } = "";
         public IEnumerable<TreeNode> Data { get; set; }
@@ -36,7 +37,7 @@ namespace WpfAsmblyBrowser
             if (openFileDialog.ShowDialog().Value)
             {
                 OpenedFileName = openFileDialog.FileName;
-                OnPropertyChanged(OpenedFileName);
+                OnPropertyChanged(nameof(OpenedFileName));
             }
         }
     }
