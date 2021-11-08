@@ -13,37 +13,39 @@ namespace AsmblyBrowserLib
         {
             if (methodInfo.IsConstructor)
             {
-                return new TreeNode("[constructor]", accessModifier: methodInfo.GetAccessModifier(), name: methodInfo.Name, treeNodes: methodInfo.GetParameterNodes());
+                return new TreeNode(nodeType: "[constructor]",
+                                    accessModifier: methodInfo.GetAccessModifier(),
+                                    name: methodInfo.Name,
+                                    treeNodes: methodInfo.GetParameterTreeNodes());
             }
             if (!methodInfo.IsSpecialName)
             {
-                return null;
+                return new TreeNode(nodeType: "[method]",
+                                    accessModifier: methodInfo.GetAccessModifier(),
+                                    typeModifier: methodInfo.GetTypeModifier(),
+                                    returnType: methodInfo.ReturnType.ToGenericTypeString(),
+                                    name: methodInfo.Name + (methodInfo.IsGenericMethod ? methodInfo.GetGenericArguments().ToGenericTypeString() : null),
+                                    treeNodes: methodInfo.GetParameterTreeNodes());
             }
             if (methodInfo.IsFinal && (methodInfo.Name == "Finalize"))
             {
-                return new TreeNode("[finalizer]", accessModifier: methodInfo.GetAccessModifier(), name: "Finalize");
+                return new TreeNode(nodeType: "[finalizer]",
+                                    accessModifier: methodInfo.GetAccessModifier(),
+                                    name: methodInfo.Name);
             }
             return null;
           
         }
-        public static IEnumerable<TreeNode> GetParameterNodes(this MethodInfo methodInfo)
+        public static string GetTypeModifier(this MethodInfo methodInfo)
         {
-            return (from parameter in methodInfo.GetParameters()
-                    select parameter.GetTreeNode()).ToList();
-        }
-
-        public static string GetAccessModifier(this MethodInfo methodInfo)
-        {
-            if (methodInfo.IsPublic)
-                return "public";
-            if (methodInfo.IsPrivate)
-                return "private";
-            if (methodInfo.IsFamily)
-                return "protected";
-            if (methodInfo.IsAssembly)
-                return "internal";
-            if (methodInfo.IsFamilyOrAssembly)
-                return "protected internal";
+            if (methodInfo.IsAbstract)
+                return "abstract";
+            if (methodInfo.IsStatic)
+                return "static";
+            if (methodInfo.IsVirtual)
+                return "virtual";
+            if (methodInfo.GetBaseDefinition() != methodInfo)
+                return "override";
 
             return "";
         }

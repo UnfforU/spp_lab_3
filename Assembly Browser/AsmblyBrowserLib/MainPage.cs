@@ -17,16 +17,16 @@ namespace AsmblyBrowserLib
             {
                 if(type.Namespace != null)
                 {
-                    if (!assemblyInfo.ContainsKey(type.Namespace)) { assemblyInfo.Add(type.Namespace, new TreeNode("[namespace]", name: type.Namespace)); }
-                }
+                    if (!assemblyInfo.ContainsKey(type.Namespace)) { assemblyInfo.Add(type.Namespace, new TreeNode(nodeType: "[namespace]", name: type.Namespace)); }
 
-                var nodeType = type;
-                var namespaceNode = assemblyInfo[type.Namespace];
+                    var namespaceNode = assemblyInfo[type.Namespace];
+                    var nodeType = type.GetTreeNode();
+                    namespaceNode.AddTreeNode(nodeType);
+                }
 
             }
 
-
-            List<TreeNode> result = new();
+            var result = assemblyInfo.Values.ToList();
             return result;
         }
 

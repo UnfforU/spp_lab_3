@@ -11,8 +11,11 @@ namespace AsmblyBrowserLib
     {
         public static TreeNode GetTreeNode(this ParameterInfo parameterInfo)
         {
-            return new TreeNode("[param]", typeModifier: parameterInfo.GetTypeModifier(), type: parameterInfo.ParameterType.ToGenericTypeString(),
-                                fullType: parameterInfo.ParameterType.FullName, name: parameterInfo.Name);
+            return new TreeNode(nodeType: "[param]",
+                                typeModifier: parameterInfo.GetTypeModifier(),
+                                type: parameterInfo.ParameterType.ToGenericTypeString(),
+                                fullType: parameterInfo.ParameterType.FullName,
+                                name: parameterInfo.Name);
         }
 
         public static string GetTypeModifier(this ParameterInfo parameterInfo)
@@ -23,6 +26,7 @@ namespace AsmblyBrowserLib
                 return "in";
             if (parameterInfo.IsOut)
                 return "virtual";
+
             return "";
         }
     }

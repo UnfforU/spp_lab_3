@@ -12,13 +12,43 @@ namespace AsmblyBrowserLib
     {
         public static TreeNode GetTreeNode(this Type type)
         {
-            var typeNode = new TreeNode("[type]", accessModifier: type.GetAccessModifier(), typeModifier: type.GetTypeModifier(), classType: type.GetClassType(), fullType: type.FullName, name: type.ToGenericTypeString());
+            var typeNode = new TreeNode(nodeType: "[type]",
+                                        accessModifier: type.GetAccessModifier(),
+                                        typeModifier: type.GetTypeModifier(),
+                                        classType: type.GetClassType(),
+                                        fullType: type.FullName,
+                                        name: type.ToGenericTypeString());
 
             var typeMembers = type.GetMembers(NonPublic | Instance | Public | Static | DeclaredOnly);
             foreach(var member in typeMembers)
             {
                 TreeNode treeNode;
-                if(member.MemberType == MemberTypes.Method) { treeNode = ((MethodInfo)member).GetTreeNode(); }
+                if (member.MemberType == MemberTypes.Method)
+                {
+                    treeNode = ((MethodInfo)member).GetTreeNode();
+                }
+                else if(member.MemberType == MemberTypes.Property)
+                {
+                    treeNode = ((PropertyInfo)member).GetTreeNode();
+                }
+                else if(member.MemberType == MemberTypes.Event)
+                {
+                    treeNode = ((EventInfo)member).GetTreeNode();
+                }
+                else if(member.MemberType == MemberTypes.Field)
+                {
+                    treeNode = ((FieldInfo)member).GetTreeNode();
+                }
+                else if(member.MemberType == MemberTypes.Constructor)
+                {
+                    treeNode = ((ConstructorInfo)member).GetTreeNode();
+                }
+                else
+                {
+                    treeNode = ((TypeInfo)member).GetTreeNode();
+                }
+
+                if(treeNode != null) { typeNode.AddTreeNode(treeNode); }
 
             }
 
@@ -41,6 +71,7 @@ namespace AsmblyBrowserLib
                 return "private protected";
             if (type.IsNotPublic)
                 return "private";
+
             return "";
         }
 
@@ -52,6 +83,7 @@ namespace AsmblyBrowserLib
                 return "abstract";
             if (type.IsSealed)
                 return "sealed";
+
             return "";
         }
 
@@ -69,6 +101,7 @@ namespace AsmblyBrowserLib
                 return "generic";
             if (type.IsValueType && !type.IsPrimitive)
                 return "structure";
+
             return "";
         }
 
@@ -79,10 +112,13 @@ namespace AsmblyBrowserLib
 
             var genericTypeName = type.GetGenericTypeDefinition().Name;
             genericTypeName = genericTypeName[..genericTypeName.IndexOf('`')];
-            var genericArgs = string.Join(", ",
-                type.GetGenericArguments()
-                    .Select(ToGenericTypeString).ToArray());
+            var genericArgs = string.Join(", ", type.GetGenericArguments().Select(ToGenericTypeString).ToArray());
             return genericTypeName + "<" + genericArgs + ">";
+        }
+        public static string ToGenericTypeString(this Type[] types)
+        {
+            var listTypes = types.Select(type => type.ToGenericTypeString()).ToList();
+            return "<" + string.Join(",", listTypes) + ">";
         }
     }
 }

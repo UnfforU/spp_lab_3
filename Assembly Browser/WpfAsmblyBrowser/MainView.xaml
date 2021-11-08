@@ -23,7 +23,6 @@
         <TreeView Grid.Row="1" Background="AntiqueWhite" Margin="0,0,0,0">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate>
-                    <TextBlock />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>

@@ -38,6 +38,9 @@ namespace WpfAsmblyBrowser
             {
                 OpenedFileName = openFileDialog.FileName;
                 OnPropertyChanged(nameof(OpenedFileName));
+
+                Data = MainPage.GetData(OpenedFileName);
+                OnPropertyChanged(nameof(Data));
             }
         }
     }

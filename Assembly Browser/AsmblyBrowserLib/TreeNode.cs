@@ -22,18 +22,17 @@ namespace AsmblyBrowserLib
         public TreeNode(string nodeType, string optional = "", string accessModifier = "", string typeModifier = "", string classType = "",
                         string type = "", string fullType = "", string returnType = "", string name = "", IEnumerable<TreeNode> treeNodes = null)
         {
-            NodeType = nodeType;
+            NodeType = nodeType;//7
             Optional = optional;
-            AccessModifier = accessModifier;//3
-            TypeModifier = typeModifier;//2
+            AccessModifier = accessModifier;//7
+            TypeModifier = typeModifier;//3
             ClassType = classType;//1
             Type = type;//1
             FullType = fullType;//2
-            ReturnType = returnType;
-            Name = name;//5
-            TreeNodes.AddRange(treeNodes);//1
+            ReturnType = returnType;//1
+            Name = name;//7
+            this.AddRange(treeNodes);
         }
-
         public void AddTreeNode(TreeNode TreeNode)
         {
             if(TreeNode != null)
