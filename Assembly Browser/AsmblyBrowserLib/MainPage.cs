@@ -9,7 +9,7 @@ namespace AsmblyBrowserLib
 {
     public static class MainPage
     {
-        private static List<TreeNode> MethodExtensions = new();
+        private static List<TreeNode> ExtensionMethods = new();
         public static List<TreeNode> GetData(string filePath)
         {
             var assemblyInfo = new Dictionary<string, TreeNode>();
@@ -22,20 +22,20 @@ namespace AsmblyBrowserLib
 
                     var namespaceTreeNode = assemblyInfo[type.Namespace];
                     var nodeType = type.GetTreeNode();
-                    MethodExtensions.AddRange(type.GetExtensionMethodTreeNodes());
+                    ExtensionMethods.AddRange(type.GetExtensionMethodTreeNodes());
                     namespaceTreeNode.AddTreeNode(nodeType);
                 }
             }
 
             var result = assemblyInfo.Values.ToList();
             InsertExtensionMethods(result);
-            MethodExtensions.Clear();
+            ExtensionMethods.Clear();
             return result;
         }
         
         private static void InsertExtensionMethods(List<TreeNode> treeNodes)
         {
-            foreach(var extensionMethod in MethodExtensions)
+            foreach(var extensionMethod in ExtensionMethods)
             {
                 var extendedType = extensionMethod.TreeNodes[0].FullType;
                 foreach(var namespaceTreeNode in treeNodes)
