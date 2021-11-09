@@ -15,14 +15,23 @@
             <RowDefinition/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Height="20" VerticalAlignment="Center">
+        <Menu Grid.Row="0" Height="20"  Background="White" VerticalAlignment="Center">
             <MenuItem Header="File">
                 <MenuItem Header="Open" Command="{Binding OpenFileCommand}"/>
             </MenuItem>
         </Menu>
-        <TreeView Grid.Row="1" Background="AntiqueWhite" Margin="0,0,0,0">
+        <TreeView Grid.Row="1" Background="AntiqueWhite" Margin="0,0,0,0" ItemsSource="{Binding Data}">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding TreeNodes}">
+                    <TextBlock Padding="0, 3">
+                        <Run Text="{Binding NodeType, UpdateSourceTrigger=PropertyChanged}" Foreground="#7703fc"/><Run Text=" "/>
+                        <Run Text="{Binding AccessModifier, UpdateSourceTrigger=PropertyChanged}" Foreground="#0034ff"/><Run Text=" "/>
+                        <Run Text="{Binding TypeModifier, UpdateSourceTrigger=PropertyChanged}" Foreground="#0078ff"/><Run Text=" "/>
+                        <Run Text="{Binding ClassType, UpdateSourceTrigger=PropertyChanged}" Foreground="#0078ff"/><Run Text=" "/>
+                        <Run Text="{Binding Type, UpdateSourceTrigger=PropertyChanged}" Foreground="#00beff"/><Run Text=" "/>
+                        <Run Text="{Binding ReturnType, UpdateSourceTrigger=PropertyChanged}" Foreground="#00beff"/><Run Text=" "/>
+                        <Run Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Foreground="#000000"/>
+                    </TextBlock>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>

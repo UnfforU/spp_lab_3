@@ -24,6 +24,7 @@ namespace AsmblyBrowserLib
 
             return "";
         }
+
         public static IEnumerable<TreeNode> GetParameterTreeNodes(this MethodBase methodBase)
         {
             return (from parameter in methodBase.GetParameters()

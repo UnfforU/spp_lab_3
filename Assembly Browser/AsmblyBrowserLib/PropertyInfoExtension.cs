@@ -18,6 +18,7 @@ namespace AsmblyBrowserLib
                                 name: propertyInfo.Name,
                                 treeNodes: propertyInfo.GetAccessorsTreeNodes());
         }
+
         private static IEnumerable<TreeNode> GetAccessorsTreeNodes(this PropertyInfo propertyInfo)
         {
             return (from accessor in propertyInfo.GetAccessors(true)

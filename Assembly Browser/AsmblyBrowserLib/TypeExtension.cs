@@ -115,6 +115,7 @@ namespace AsmblyBrowserLib
             var genericArgs = string.Join(", ", type.GetGenericArguments().Select(ToGenericTypeString).ToArray());
             return genericTypeName + "<" + genericArgs + ">";
         }
+
         public static string ToGenericTypeString(this Type[] types)
         {
             var listTypes = types.Select(type => type.ToGenericTypeString()).ToList();

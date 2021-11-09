@@ -18,7 +18,6 @@ namespace WpfAsmblyBrowser
         public IEnumerable<TreeNode> Data { get; set; }
         public ICommand OpenFileCommand => new OpenFileCommand(StartAssembly);
 
-
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {

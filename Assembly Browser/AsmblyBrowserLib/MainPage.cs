@@ -23,7 +23,6 @@ namespace AsmblyBrowserLib
                     var nodeType = type.GetTreeNode();
                     namespaceNode.AddTreeNode(nodeType);
                 }
-
             }
 
             var result = assemblyInfo.Values.ToList();
