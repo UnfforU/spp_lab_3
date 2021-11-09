@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using static System.Reflection.BindingFlags;
+using System.Runtime.CompilerServices;
 
 namespace AsmblyBrowserLib
 {
@@ -120,6 +121,21 @@ namespace AsmblyBrowserLib
         {
             var listTypes = types.Select(type => type.ToGenericTypeString()).ToList();
             return "<" + string.Join(",", listTypes) + ">";
+        }
+
+        public static IEnumerable<TreeNode> GetExtensionMethodTreeNodes(this Type type)
+        {
+            return (from method in type.GetMethods(NonPublic | Instance | Public | Static | DeclaredOnly).Where(m => !m.IsSpecialName)
+                                                                                                         .Where(m => m.IsDefined(typeof(ExtensionAttribute), false))
+                    select new TreeNode(nodeType: "[method]",
+                                        optional: "[extension]",
+                                        accessModifier: method.GetAccessModifier(),
+                                        typeModifier: method.GetTypeModifier(),
+                                        fullType: method.ReturnType.FullName,
+                                        returnType: method.ReturnType.ToGenericTypeString(),
+                                        name: method.Name,
+                                        treeNodes: method.GetParameterTreeNodes()))
+                    .ToList();
         }
     }
 }

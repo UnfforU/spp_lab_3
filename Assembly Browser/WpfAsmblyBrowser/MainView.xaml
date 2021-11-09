@@ -25,6 +25,7 @@
                 <HierarchicalDataTemplate ItemsSource="{Binding TreeNodes}">
                     <TextBlock Padding="0, 3">
                         <Run Text="{Binding NodeType, UpdateSourceTrigger=PropertyChanged}" Foreground="#7703fc"/><Run Text=" "/>
+                        <Run Text="{Binding Optional, UpdateSourceTrigger=PropertyChanged}" Foreground="Green"/><Run Text=" "/>
                         <Run Text="{Binding AccessModifier, UpdateSourceTrigger=PropertyChanged}" Foreground="#0034ff"/><Run Text=" "/>
                         <Run Text="{Binding TypeModifier, UpdateSourceTrigger=PropertyChanged}" Foreground="#0078ff"/><Run Text=" "/>
                         <Run Text="{Binding ClassType, UpdateSourceTrigger=PropertyChanged}" Foreground="#0078ff"/><Run Text=" "/>
